@@ -14,7 +14,7 @@ export const deleteService = async (id) => {
 };
 
 export const fetchAvailableHours = async (payload) => {
-  return await axios.post(`${baseUrl}available_hours`, payload);
+  return await axios.get(`${baseUrl}available_hours`, { params: payload });
 };
 
 export const updateEngineerAvailableHour = async (payload) => {
@@ -22,7 +22,7 @@ export const updateEngineerAvailableHour = async (payload) => {
 };
 
 export const fetchAllShifts = async (payload) => {
-  return await axios.post(`${baseUrl}shifts`, payload);
+  return await axios.get(`${baseUrl}shifts`, { params: payload });
 };
 
 export const updateShift = async (payload) => {

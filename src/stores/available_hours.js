@@ -13,9 +13,9 @@ export const useAvailableHoursStore = defineStore({
     getError: (state) => state.error,
   },
   actions: {
-    async fetchAvailableHours({ commit }) {
+    async fetchAvailableHours({ commit }, payload) {
       try {
-        const { data } = fetchAvailableHours();
+        const { data } = fetchAvailableHours(payload);
         commit("SET_AVAILABLE_HOURS", data);
       } catch (e) {
         commit("SET_ERROR", e);
