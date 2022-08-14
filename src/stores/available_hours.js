@@ -4,41 +4,30 @@ import { fetchAvailableHours, updateEngineerAvailableHour } from "../api/api";
 export const useAvailableHoursStore = defineStore({
   id: "available_hours",
   state: () => ({
-    available_hours: [],
+    availableHours: [],
     error: null,
-    available_hour: {},
+    availableHour: {},
   }),
   getters: {
-    getAvailableHours: (state) => state.available_hours,
+    getAvailableHours: (state) => state.availableHours,
     getError: (state) => state.error,
   },
   actions: {
-    async fetchAvailableHours({ commit }, payload) {
+    async fetchAvailableHours(payload) {
       try {
-        const { data } = fetchAvailableHours(payload);
-        commit("SET_AVAILABLE_HOURS", data);
+        const { data: { available_hours} } = await fetchAvailableHours(payload);
+        this.availableHours = available_hours;
       } catch (e) {
-        commit("SET_ERROR", e);
+        this.error = e;
       }
     },
-    async updateEngineerAvailableHour({ commit }, payload) {
+    async updateEngineerAvailableHour(payload) {
       try {
-        const { data } = updateEngineerAvailableHour(payload);
-        commit("SET_AVAILABLE_HOUR", data);
+        const { data: { availabel_hour} } = await updateEngineerAvailableHour(payload);
+        this.availableHour = availabel_hour;
       } catch (e) {
-        commit("SET_ERROR", e);
+        this.error = e;
       }
-    },
-  },
-  mutations: {
-    SET_AVAILABLE_HOURS(state, available_hours) {
-      state.available_hours = available_hours;
-    },
-    SET_AVAILABLE_HOUR(state, available_hour) {
-      state.available_hour = available_hour;
-    },
-    SET_ERROR(state, error) {
-      state.error = error;
     },
   },
 });

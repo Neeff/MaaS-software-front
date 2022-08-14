@@ -6,7 +6,7 @@ export const useServiceStore = defineStore({
   state: () => ({
     services: [],
     error: null,
-    service: [],
+    service: {},
     message: "",
   }),
   getters: {
@@ -14,41 +14,38 @@ export const useServiceStore = defineStore({
     getError: (state) => state.error,
   },
   actions: {
-    async fetchAllServices({ commit }) {
+    async fetchAllServices() {
       try {
-        const { data } = fetchAllServices();
-        commit("SET_SERVICES", data);
+        const { data: { services } } = await fetchAllServices();
+        this.services = services;
       } catch (e) {
-        commit("SET_ERROR", e);
+        this.error = e;
       }
     },
-    async createService({ commit }, payload) {
+    async createService(payload) {
       try {
-        const { data } = createService(payload);
-        commit("SET_SERVICE", data);
+        const { data } = await createService(payload);
+        this.service = data;
       } catch (e) {
-        commit("SET_ERROR", e);
+        this.error = e;
       }
     },
 
-    async deleteService({ commit }, id) {
+    async setService(payload) {
       try {
-        const { data } = deleteService(id);
-        commit("SET_MESSAGE", data);
+        this.service = payload;
       } catch (e) {
-        commit("SET_ERROR", e);
+        this.error = e;
       }
     },
-  },
-  mutations: {
-    SET_SERVICES(state, services) {
-      state.services = services;
-    },
-    SET_ERROR(state, error) {
-      state.error = error;
-    },
-    SET_MESSAGE(state, message) {
-      state.message = message;
+
+    async deleteService(id) {
+      try {
+        const { data } = await deleteService(id);
+        this.message = data;
+      } catch (e) {
+        this.error = e;
+      }
     },
   },
 });
