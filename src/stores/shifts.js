@@ -12,21 +12,13 @@ export const useShiftStore = defineStore({
     getError: (state) => state.error,
   },
   actions: {
-    async fetchAllShifts ({ commit }, payload) {
+    async fetchAllShifts(payload) {
       try {
-        const { data } = fetchAllShifts(payload);
-        commit("SET_SHIFTS", data);
+        const { data: { available_hours } } = await fetchAllShifts(payload);
+        this.shifts = available_hours;
       } catch (e) {
-        commit("SET_ERROR", e);
+        this.error = e;
       }
-    },
-  },
-  mutations: {
-    SET_SHIFTS(state, shifts) {
-      state.shifts = shifts;
-    },
-    SET_ERROR(state, error) {
-      state.error = error;
     },
   },
 });
