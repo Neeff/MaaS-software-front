@@ -32,7 +32,6 @@ export const useAvailableHoursStore = defineStore({
       try {
         const { data: { available_hour } } = await updateEngineerAvailableHour(payload);
         this.availableHour = available_hour;
-        this.loading = false;
       } catch (e) {
         this.error = e;
       }
