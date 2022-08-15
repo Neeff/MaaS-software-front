@@ -40,14 +40,7 @@ const getDataByService = (service) => {
   setService(service);
   fetchAvailableHours(service.id);
   fetchAllShifts(service.id);
-
 }
 
 fetchAllServices();
 </script>
-
-<style>
-  .dropdown:hover .dropdown-menu {
-  display: block;
-}
-</style>
