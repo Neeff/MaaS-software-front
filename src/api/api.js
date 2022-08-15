@@ -20,22 +20,23 @@ export const deleteService = async (id) => {
   });
 };
 
-export const fetchAvailableHours = async (payload) => {
-  return await axios.get(`${baseUrl}available_hours/${payload}`, {
+export const fetchAvailableHours = async (payload, week) => {
+  return await axios.get(`${baseUrl}available_hours/${payload}/${week}`, {
     headers: { "Content-Type": "application/json" },
   });
 };
 
-export const updateEngineerAvailableHour = async (serviceId, payload) => {
+export const updateEngineerAvailableHour = async (serviceId, payload, week) => {
   return await axios.patch(`${baseUrl}available_hours/${serviceId}`, {
     available_hours: payload,
     service_id: serviceId,
+    week: week,
     headers: { "Content-Type": "application/json" },
   });
 };
 
-export const fetchAllShifts = async (payload) => {
-  return await axios.get(`${baseUrl}shifts/${payload}`, {
+export const fetchAllShifts = async (payload, week) => {
+  return await axios.get(`${baseUrl}shifts/${payload}/${week}`, {
     headers: { "Content-Type": "application/json" },
   });
 };

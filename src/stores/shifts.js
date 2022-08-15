@@ -15,12 +15,21 @@ export const useShiftStore = defineStore({
         .map((value, key) => ({ date: key, hours: value }))
         .value();
     },
+    getHoursPerEngineer: (state) => {
+      return state.shifts.reduce((acc, value) => {
+        return {
+          ...acc,
+          [value?.shift?.engineer.name]:
+            (acc[value?.shift?.engineer.name] || 0) + 1,
+        };
+      }, {});
+    },
     getError: (state) => state.error,
   },
   actions: {
-    async fetchAllShifts(payload) {
+    async fetchAllShifts(payload, week) {
       try {
-        const { data: { available_hours } } = await fetchAllShifts(payload);
+        const { data: { available_hours } } = await fetchAllShifts(payload, week);
         this.shifts = available_hours;
       } catch (e) {
         this.error = e;

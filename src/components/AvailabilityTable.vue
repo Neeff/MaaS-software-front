@@ -4,7 +4,7 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import { storeToRefs } from "pinia";
 import { useServiceStore } from "../stores/services";
 import { useAvailableHoursStore } from "../stores/available_hours";
-const { service } = storeToRefs(useServiceStore());
+const { service, selectedWeek } = storeToRefs(useServiceStore());
 const { getAvailableHours} = storeToRefs(useAvailableHoursStore());
 const { updateEngineerAvailableHour, pushToAvailableHoursToUpdate } = useAvailableHoursStore();
 const formatDay = (day) => {
@@ -22,8 +22,8 @@ const check =  ({engineer_id, available_hour_id }, e) => {
 </script>
 <template>
 <br/>
-<a-button type="primary" @click="updateEngineerAvailableHour(service.id)">Actualizar Disponibilidad</a-button>
-  <a-row :gutter="[8, 8]">
+<a-button class="button" type="primary" @click="updateEngineerAvailableHour(service.id, selectedWeek)">Actualizar Disponibilidad</a-button>
+  <a-row :gutter="[8, 8]" style="margin-left: 100px">
     <a-col :span="6" v-for="day in getAvailableHours" :key="day.date">
       <a-card style="width: 300px" :title="formatDay(day)" hoverable>
           <p v-for="hour in day.hours" :key="hour.id">
@@ -36,3 +36,11 @@ const check =  ({engineer_id, available_hour_id }, e) => {
     </a-col>
   </a-row>
 </template>
+
+
+<style>
+  .button {
+    margin-left: 100px;
+    margin-bottom: 30px;
+  }
+</style>

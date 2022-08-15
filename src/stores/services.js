@@ -8,10 +8,12 @@ export const useServiceStore = defineStore({
     error: null,
     service: {},
     message: "",
+    selectedWeek: null,
   }),
   getters: {
     getServices: (state) => state.services,
     getService: (state) => state.service,
+    getSelectedWeek: (state) => state.selectedWeek,
     getError: (state) => state.error,
   },
   actions: {
@@ -32,9 +34,18 @@ export const useServiceStore = defineStore({
       }
     },
 
-    async setService(payload) {
+    setService(payload) {
       try {
         this.service = payload;
+        this.selectedWeek = payload.current_week;
+      } catch (e) {
+        this.error = e;
+      }
+    },
+
+    setSelectedWeek(week) {
+      try {
+        this.selectedWeek = week;
       } catch (e) {
         this.error = e;
       }
