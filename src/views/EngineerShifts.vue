@@ -1,11 +1,14 @@
 <template>
   <h1>Shifts</h1>
-  <div class="grid place-items-center h-screen h1 " v-if="Object.keys(service).length === 0">
-    <h1>Seleccione Servicio Para Ver horas disponibles... 🙏</h1>
-  </div>
+
+  <template v-if="Object.keys(service).length === 0">
+    <a-empty
+      description="Seleccione servicio para ver turnos asignados... 🙏"
+    />
+  </template>
 
   <div v-else>
-    {{ shifts }}
+    {{ getShifts }}
   </div>
 </template>
 
@@ -13,7 +16,7 @@
 import { storeToRefs } from "pinia";
 import { useServiceStore } from "../stores/services";
 import { useShiftStore } from "../stores/shifts";
-const { shifts } = storeToRefs(useShiftStore());
+const { getShifts } = storeToRefs(useShiftStore());
 const { service } = storeToRefs(useServiceStore());
 
 </script>

@@ -27,8 +27,9 @@ export const fetchAvailableHours = async (payload) => {
 };
 
 export const updateEngineerAvailableHour = async (payload) => {
+  console.log(payload);
   return await axios.patch(`${baseUrl}available_hours/${payload.id}`, {
-    body: payload,
+    ...payload,
     headers: { "Content-Type": "application/json" },
   });
 };
