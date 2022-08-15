@@ -16,14 +16,10 @@ const presenceOfShift = (hour) => {
   if (hour && hour.shift) return true;
   else return false;
 };
-
 </script>
-<!-- 
 <template>
-  {{ getShifts }}
-</template> -->
-
-<template>
+<br />
+<a-button type="primary" @click="this.$router.push({ name: 'availablehours' })">Editar Disponibilidad</a-button>
   <a-row :gutter="[8, 8]">
     <a-col :span="6" v-for="day in getShifts" :key="day.date +'1'">
       <a-card style="width: 300px" :title="formatDay(day)" hoverable>

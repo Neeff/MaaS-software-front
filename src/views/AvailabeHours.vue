@@ -4,8 +4,9 @@
       description="Seleccione servicio para ver horas disponibles... 🙏"
     />
   </template>
-
-  <AvailabilityTable />
+  <template v-else>
+    <AvailabilityTable />
+  </template>
 </template>
 
 <script setup>

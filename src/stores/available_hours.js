@@ -8,7 +8,8 @@ export const useAvailableHoursStore = defineStore({
     availableHours: [],
     error: null,
     loading: false,
-    availableHour: {},
+    updatedAvailableHour: [],
+    engineerAvailableHoursToUpdate: [],
   }),
   getters: {
     getAvailableHours: (state) => {
@@ -28,16 +29,36 @@ export const useAvailableHoursStore = defineStore({
         this.error = e;
       }
     },
-    async updateEngineerAvailableHour(payload) {
+    async updateEngineerAvailableHour(service) {
       try {
-        const { data: { available_hour } } = await updateEngineerAvailableHour(payload);
-        this.availableHour = available_hour;
+        const payload = this.engineerAvailableHoursToUpdate;
+        const { data: { available_hours } } = await updateEngineerAvailableHour(service, payload);
+        this.updatedAvailableHour = available_hours;
+        this.fetchAvailableHours(service);
+        this.engineerAvailableHoursToUpdate = [];
       } catch (e) {
         this.error = e;
       }
     },
     setLoading() {
       this.loading = true;
-    }
+    },
+    pushToAvailableHoursToUpdate(payload) {
+      const {
+        available_hour: { engineer_id, available_hour_id, active },
+      } = payload;
+      try {
+        this.engineerAvailableHoursToUpdate.push(payload);
+        _.remove(
+          this.engineerAvailableHoursToUpdate,
+          (element) =>
+            element.available_hour.engineer_id === engineer_id &&
+            element.available_hour.available_hour_id === available_hour_id &&
+            element.available_hour.active !== active
+        );
+      } catch (e) {
+        this.error = e;
+      }
+    },
   },
 });

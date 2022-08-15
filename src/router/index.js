@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import MaasServices from "@/views/MaasServices.vue";
-import AvailableHours from "@/views/AvailabeHours.vue";
-import EngineerShifts from "@/views/EngineerShifts.vue";
+// import MaasServices from "@/views/MaasServices.vue";
+// import AvailableHours from "@/views/AvailabeHours.vue";
+// import EngineerShifts from "@/views/EngineerShifts.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,18 +9,18 @@ const router = createRouter({
     {
       path: "/services",
       name: "maasservices",
-      component: MaasServices,
+      component: () => import("@/views/MaasServices.vue"),
     },
     {
       path: "/available_hours",
       name: "availablehours",
-      component: AvailableHours,
+      component: () => import("@/views/AvailabeHours.vue"),
     },
 
     {
       path: "/shifts",
       name: "engineershifts",
-      component: EngineerShifts,
+      component: () => import("@/views/EngineerShifts.vue"),
     },
   ],
 });
