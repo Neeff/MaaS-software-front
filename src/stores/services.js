@@ -11,6 +11,7 @@ export const useServiceStore = defineStore({
   }),
   getters: {
     getServices: (state) => state.services,
+    getService: (state) => state.service,
     getError: (state) => state.error,
   },
   actions: {
