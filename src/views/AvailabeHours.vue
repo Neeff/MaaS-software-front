@@ -1,12 +1,12 @@
 <template>
-  <h1>AvailableHours</h1>
  <template v-if="Object.keys(service).length === 0">
     <a-empty
       description="Seleccione servicio para ver horas disponibles... 🙏"
     />
   </template>
-
-  <AvailabilityTable />
+  <template v-else>
+    <AvailabilityTable />
+  </template>
 </template>
 
 <script setup>
