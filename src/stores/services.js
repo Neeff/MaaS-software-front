@@ -28,6 +28,7 @@ export const useServiceStore = defineStore({
     async createService(payload) {
       try {
         const { data } = await createService(payload);
+        this.fetchAllServices();
         this.service = data;
       } catch (e) {
         this.error = e;

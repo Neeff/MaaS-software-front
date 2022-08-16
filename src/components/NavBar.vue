@@ -9,16 +9,19 @@
       </a-menu-item-group>
     </a-sub-menu>
     <a-menu-item
-      key="mail"
+      key="Horas disponibles"
       @click="this.$router.push({ name: 'availablehours' })"
     >
       Horas Disponibles
     </a-menu-item>
     <a-menu-item
-      key="app"
+      key="Turnos"
       @click="this.$router.push({ name: 'engineershifts' })"
     >
       Turnos
+    </a-menu-item>
+    <a-menu-item key="Crear servicio" @click="this.$router.push({ name: 'maasservices' })">
+      Crear Servicio
     </a-menu-item>
   </a-menu>
 </template>

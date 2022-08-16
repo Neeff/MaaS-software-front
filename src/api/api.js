@@ -10,7 +10,7 @@ export const fetchAllServices = async () => {
 export const createService = async (payload) => {
   return await axios.post(`${baseUrl}services`, {
     headers: { "Content-Type": "application/json" },
-    body: payload,
+    service: payload,
   });
 };
 
