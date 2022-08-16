@@ -21,20 +21,21 @@ export const useAvailableHoursStore = defineStore({
     getError: (state) => state.error,
   },
   actions: {
-    async fetchAvailableHours(payload) {
+    async fetchAvailableHours(payload, week) {
       try {
-        const { data: { available_hours } } = await fetchAvailableHours(payload);
+        const { data: { available_hours } } = await fetchAvailableHours(payload, week);
         this.availableHours = available_hours;
+        this.engineerAvailableHoursToUpdate = [];
       } catch (e) {
         this.error = e;
       }
     },
-    async updateEngineerAvailableHour(service) {
+    async updateEngineerAvailableHour(service, week) {
       try {
         const payload = this.engineerAvailableHoursToUpdate;
-        const { data: { available_hours } } = await updateEngineerAvailableHour(service, payload);
+        const { data: { available_hours } } = await updateEngineerAvailableHour(service, payload, week);
         this.updatedAvailableHour = available_hours;
-        this.fetchAvailableHours(service);
+        this.fetchAvailableHours(service, week);
         this.engineerAvailableHoursToUpdate = [];
       } catch (e) {
         this.error = e;

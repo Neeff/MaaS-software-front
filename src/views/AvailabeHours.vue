@@ -5,6 +5,7 @@
     />
   </template>
   <template v-else>
+    <h1 style="margin-left: 100px">{{ service.company_name }}</h1>
     <AvailabilityTable />
   </template>
 </template>
